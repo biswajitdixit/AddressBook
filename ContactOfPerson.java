@@ -1,3 +1,5 @@
+package com.add;
+
 public class ContactOfPerson {
 
 
@@ -76,7 +78,7 @@ public class ContactOfPerson {
         this.phoneNo = phoneNo;
     }
 
- @Override
+
     public String toString() {
         String addressString = "Name: " + firstName + " " + lastName +
                 "\nPhone: " + phoneNo +
@@ -85,8 +87,5 @@ public class ContactOfPerson {
         return addressString;
     }
 
-    public static void main(String[] args) {
-        ContactOfPerson c=new ContactOfPerson("Biswajit","Dixit","sector","rourkela","odisha","282288228","63736025");
-        System.out.println(c);
-    }
+
 }
