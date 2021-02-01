@@ -3,9 +3,12 @@ package com.add;
 import java.util.*;
 
 public class AddressBookMain {
+    ArrayList<ContactOfPerson> al=null;
+    AddressBookMain(){
+        al= new ArrayList<>();
+    }
 
-
-    static ContactOfPerson add() {
+    public void add() {
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter the Details of ContactDetails");
         System.out.println("Enter the first name");
@@ -14,7 +17,7 @@ public class AddressBookMain {
         String lastName = sc.next();
         System.out.println("Enter the Address");
         String address = sc.next();
-        System.out.println("Enter the City");						
+        System.out.println("Enter the City");
         String city = sc.next();
         System.out.println("Enter the State");
         String state = sc.next();
@@ -23,10 +26,10 @@ public class AddressBookMain {
         System.out.println("Enter the contact number...");
         String phoneNumber = sc.next();
 
-        return new ContactOfPerson(firstName, lastName, address, city, state, zipCode, phoneNumber);
+        al.add( new ContactOfPerson(firstName, lastName, address, city, state, zipCode, phoneNumber));
     }
 
-    static ContactOfPerson edit(ContactOfPerson ContactDetails) {
+    public void edit(ContactOfPerson ContactDetails) {
         Scanner sc = new Scanner(System.in);
 
         System.out.println("Enter the Address");
@@ -39,19 +42,19 @@ public class AddressBookMain {
         ContactDetails.zip = sc.next();
         System.out.println("Enter the contact number...");
         ContactDetails.phoneNo = sc.next();
-        return ContactDetails;
+
 
     }
 
-    static ContactOfPerson delete(ContactOfPerson ContactDetails) {
+    public void delete(ContactOfPerson Contact) {
 
-
-        return null;
+        al.remove(Contact);
 
     }
-    
+
     static void menu() {
         ContactOfPerson ContactDetails = null;
+        AddressBookMain ab=new AddressBookMain();
         int choice;
         do {
             Scanner sc = new Scanner(System.in);
@@ -59,32 +62,39 @@ public class AddressBookMain {
             choice = sc.nextInt();
             switch (choice) {
                 case 1:
-                    ContactDetails = add();
+                    ab.add();
                     break;
                 case 2:
 
                     System.out.println("Enter the ContactDetails Name to edit details..");
                     String firstName = sc.next();
-                    if (firstName.equals(ContactDetails.firstName)) {
-                        ContactDetails = edit(ContactDetails);
-                    } else {
-                        System.out.println(firstName + " is not exists ");
+                    ArrayList <ContactOfPerson> personList= ab.al;
+                    for (int i=0;i<personList.size();i++) {
+                        if (personList.get(i).firstName.equals(firstName)) {
+                            ContactOfPerson ContactDetail = personList.get(i);
+
+                            ab.edit(ContactDetail);
+
+                        } else {
+                            System.out.println(firstName + " is not exists ");
+                        }
                     }
                     break;
                 case 3:
-
                     System.out.println("Enter the ContactDetails name to Delete the Details");
-                    String firstName1 = sc.next();
-                    if(firstName1.equals(ContactDetails.firstName)) {
-                        ContactDetails = delete(ContactDetails);
+                    firstName = sc.next();
+                    ArrayList <ContactOfPerson> personLists= ab.al;
+                    for (int i=0;i<personLists.size();i++) {
+                        if (personLists.get(i).firstName.equals(firstName)) {
+                            ContactOfPerson Contact =personLists.get(i);
+                            ab.delete(Contact);
+                        }
                     }
-                    else {
-                        System.out.println(firstName1 + " is not exists ");
-                    }
+
                     break;
 
                 case 4:
-                    System.out.println(ContactDetails);
+                    System.out.println(ab.al);
                     break;
                 default:
                     System.out.println("Enter num from 1 to 4");
@@ -93,9 +103,8 @@ public class AddressBookMain {
     }
 
     public static void main(String[] args) {
-
         menu();
-
     }
 
 }
+
