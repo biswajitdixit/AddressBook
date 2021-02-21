@@ -3,9 +3,17 @@ import java.util.stream.Collectors;
 
 public class AddressBook {
     public static Scanner sc = new Scanner(System.in);
-    public ArrayList<ContactOfPerson> contactList = new ArrayList<>();
+    public ArrayList<ContactOfPerson> contactList ;
+    public HashMap<String, ArrayList<ContactOfPerson>> personByState;
+    public HashMap<String, ArrayList<ContactOfPerson>> personByCity;
 
-    public void addContactDetails(){
+    public AddressBook() {
+        personByCity = new HashMap<String, ArrayList<ContactOfPerson>>();
+        personByState = new HashMap<String, ArrayList<ContactOfPerson>>();
+        contactList = new ArrayList<>();
+    }
+
+    public ArrayList<ContactOfPerson> addContactDetails(){
         System.out.println("Enter the Details of ContactDetails");
         System.out.println("Enter the first name");
         String firstName = sc.next();
@@ -28,8 +36,19 @@ public class AddressBook {
             String phoneNumber = sc.next();
             ContactOfPerson contactofPerson = new ContactOfPerson(firstName, lastName, address, city, state, email, phoneNumber, zip);
             contactList.add(contactofPerson);
+            if(!personByState.containsKey(state)){
+                personByState.put(state,new ArrayList<ContactOfPerson>());
+            }
+            personByState.get(state).add(contactofPerson);
 
-        }}
+            if(!personByCity.containsKey(city)){
+                personByCity.put(city,new ArrayList<ContactOfPerson>());
+            }
+            personByCity.get(city).add(contactofPerson);
+
+
+
+        }return contactList;}
 
     public boolean editContactDetails(String Name) {
         int flag = 0;
