@@ -141,6 +141,31 @@ class AddressBookMain {
             }
         }
     }
+    private void sortContactByState() {
+        for (Map.Entry<String,AddressBook>entry:addressBookListMap.entrySet()){
+            AddressBook value = entry.getValue();
+            List<ContactOfPerson> sortedList = value.contactList.stream().sorted(Comparator.comparing(ContactOfPerson::getState)).collect(Collectors.toList());
+
+            for(ContactOfPerson contact:sortedList){
+                System.out.println("First Name: "+contact.getFirstName());
+                System.out.println("Last Name: "+contact.getLastName());
+                System.out.println("-------------------------------");
+            }
+        }
+    }
+
+    private void sortContactByCity() {
+        for (Map.Entry<String,AddressBook>entry:addressBookListMap.entrySet()){
+            AddressBook value = entry.getValue();
+            List<ContactOfPerson> sortedList = value.contactList.stream().sorted(Comparator.comparing(ContactOfPerson::getCity)).collect(Collectors.toList());
+
+            for(ContactOfPerson contact:sortedList){
+                System.out.println("First Name: "+contact.getFirstName());
+                System.out.println("Last Name: "+contact.getLastName());
+                System.out.println("-------------------------------");
+            }
+        }
+    }
 
 
     public static void main(String[] args) {
@@ -156,7 +181,9 @@ class AddressBookMain {
             System.out.println("6.Count Contact By State");
             System.out.println("7.Count Contact By City");
             System.out.println("8.Sort Contact By Name");
-            System.out.println("9.Exit");
+            System.out.println("9.Sort Contact By City");
+            System.out.println("10.Sort Contact By State");
+            System.out.println("11.Exit");
 
             System.out.println("Enter choice: ");
             int option = sc.nextInt();
@@ -211,8 +238,17 @@ class AddressBookMain {
                 case 8:
                     System.out.println("Sort Contact");
                     addressBookMain.sortContactByName();
-
                 case 9:
+                    System.out.println("Sort Contact");
+                    addressBookMain.sortContactByCity();
+                    break;
+
+                case 10:
+                    System.out.println("Sort Contact");
+                    addressBookMain.sortContactByState();
+                    break;
+
+                case 11:
                     flag = false;
                     break;
             }
