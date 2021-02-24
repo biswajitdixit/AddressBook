@@ -1,4 +1,5 @@
 import java.util.*;
+import java.util.stream.Collectors;
 
 class AddressBookMain {
     public static Scanner sc = new Scanner(System.in);
@@ -128,6 +129,18 @@ class AddressBookMain {
         }
         System.out.println("Total number of people in this city "+city+": "+countPersonInCity);
     }
+    private void sortContactByName() {
+        for (Map.Entry<String,AddressBook>entry:addressBookListMap.entrySet()){
+            AddressBook value = entry.getValue();
+            List<ContactOfPerson> sortedList = value.contactList.stream().sorted(Comparator.comparing(ContactOfPerson::getFirstName)).collect(Collectors.toList());
+
+            for(ContactOfPerson contact:sortedList){
+                System.out.println("First Name: "+contact.getFirstName());
+                System.out.println("Last Name: "+contact.getLastName());
+                System.out.println("-------------------------");
+            }
+        }
+    }
 
 
     public static void main(String[] args) {
@@ -142,7 +155,8 @@ class AddressBookMain {
             System.out.println("5.View Contact by city ");
             System.out.println("6.Count Contact By State");
             System.out.println("7.Count Contact By City");
-            System.out.println("8.Exit");
+            System.out.println("8.Sort Contact By Name");
+            System.out.println("9.Exit");
 
             System.out.println("Enter choice: ");
             int option = sc.nextInt();
@@ -194,9 +208,11 @@ class AddressBookMain {
                     String cityName2 = sc.next();
                     addressBookMain.CountByCity(cityName2);
                     break;
-
-
                 case 8:
+                    System.out.println("Sort Contact");
+                    addressBookMain.sortContactByName();
+
+                case 9:
                     flag = false;
                     break;
             }
