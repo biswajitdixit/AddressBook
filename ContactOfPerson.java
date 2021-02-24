@@ -82,5 +82,13 @@ public class ContactOfPerson {
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
+    @Override
+    public String toString() {
+        String addressString = "Name: " + firstName + " " + lastName +
+                "\nPhone: " +phoneNumber +
+                "\nAddress: " + address + ", " + city + ", " + state +
+                "\nZIP: " + zip;
+        return addressString;
+     }
 
 }

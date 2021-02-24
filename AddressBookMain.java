@@ -3,8 +3,8 @@ import java.util.stream.Collectors;
 
 class AddressBookMain {
     public static Scanner sc = new Scanner(System.in);
-    private  AddressBook addressBook = new AddressBook();
-    public static Map<String,AddressBook> addressBookListMap = new HashMap<>();
+    private static AddressBook addressBook = new AddressBook();
+    public static Map<String, AddressBook> addressBookListMap = new HashMap<>();
 
     public void addAddressBook(String addressBookName){
         AddressBookMain addBookMain = new AddressBookMain();
@@ -58,7 +58,6 @@ class AddressBookMain {
         addressBookListMap.put(addressBookName, addressBook);
         System.out.println("Address Book Added Successfully");
     }
-
     private void searchPersonByState(String stateName) {
         for(Map.Entry<String,AddressBook> entry: addressBookListMap.entrySet()){
             AddressBook value = entry.getValue();
@@ -171,8 +170,8 @@ class AddressBookMain {
     public static void main(String[] args) {
         System.out.println("----------------****Welcome to the Address Book System****--------------");
         AddressBookMain addressBookMain = new AddressBookMain();
-        boolean flag =true;
-        while(flag) {
+        boolean flag = true;
+        while (flag) {
             System.out.println("1.Add New Address Book");
             System.out.println("2.Search Contact from a city");
             System.out.println("3.Search Contact from a State");
@@ -183,17 +182,18 @@ class AddressBookMain {
             System.out.println("8.Sort Contact By Name");
             System.out.println("9.Sort Contact By City");
             System.out.println("10.Sort Contact By State");
-            System.out.println("11.Exit");
-
+            System.out.println("11.Write data");
+            System.out.println("12.Read data");
+            System.out.println("13.Exit");
+            String addressBookName = null;
             System.out.println("Enter choice: ");
             int option = sc.nextInt();
             switch (option) {
                 case 1: {
                     System.out.println("Enter the Name of Address Book: ");
-                    String addressBookName = sc.next();
+                    addressBookName = sc.next();
                     if (addressBookListMap.containsKey(addressBookName)) {
                         System.out.println("The Address book Already Exists");
-                        addressBookMain.addAddressBook(addressBookName);
                         break;
                     } else {
                         addressBookMain.addAddressBook(addressBookName);
@@ -247,13 +247,16 @@ class AddressBookMain {
                     System.out.println("Sort Contact");
                     addressBookMain.sortContactByState();
                     break;
-
                 case 11:
+                    addressBook.writeData(addressBookName);
+                    break;
+                case 12:
+                    addressBook.readData(addressBookName);
+                    break;
+                case 13:
                     flag = false;
                     break;
             }
         }
-
     }
-
 }

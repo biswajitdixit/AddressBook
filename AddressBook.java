@@ -1,3 +1,7 @@
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -32,7 +36,7 @@ public class AddressBook {
             String email = sc.next();
             System.out.println("Enter the ZipCode");
             String zip = sc.next();
-            System.out.println("Enter the contact number...");
+            System.out.println("Enter the contact no");
             String phoneNumber = sc.next();
             ContactOfPerson contactofPerson = new ContactOfPerson(firstName, lastName, address, city, state, email, phoneNumber, zip);
             contactList.add(contactofPerson);
@@ -80,7 +84,7 @@ public class AddressBook {
         }
         return flag == 1;
     }
-      public boolean deleteContact(String name) {
+    public boolean deleteContact(String name) {
         int flag = 0;
         for(ContactOfPerson contact: contactList)
         {
@@ -91,7 +95,7 @@ public class AddressBook {
                 break;
             }
         }
-          return flag == 1;
+        return flag == 1;
     }
     public boolean checkDuplicate(String fname)
     {
@@ -122,6 +126,31 @@ public class AddressBook {
             System.out.println("Last Name: "+contact.getLastName());
         }
     }
+    public void writeData(String addressBookName) {
+        StringBuffer personBuffer = new StringBuffer();
+        contactList.forEach(person -> {
+            String personDataString = person.toString().concat("\n");
+            personBuffer.append(personDataString);
+        });
+        try {
+            Files.write(Paths.get("F:\\Data\\personData.txt"), personBuffer.toString().getBytes());
+
+        } catch (IOException e) {
+            e.printStackTrace();
+
+        }
+    }
+
+    public void readData(String readAddressBookName) {
+        try {
+            Files.lines(new File("F:\\Data\\personData.txt").toPath()).map(String::trim).forEach(System.out::println);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+
+        }
+    }
+
 
 
 }
